@@ -6,7 +6,7 @@
 # from there.
 # Sources: See README.md
 
-import socket, os, terminal;
+import socket, os, terminal
 
 # PORT NUMBER TO USE
 PORT = 38742

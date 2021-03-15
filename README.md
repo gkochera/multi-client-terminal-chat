@@ -1,7 +1,7 @@
 # Multi-Party Chat
 
 By: George Kochera
-Date: 3/13/2021
+Date: 3/15/2021
 
 
 ## Sources
@@ -9,28 +9,28 @@ Date: 3/13/2021
 I am listing these sources here because they were all consulted through out the
 evolution of the project.
 
-Python Socket Library (Both):
+Python Socket Library:
 
 https://docs.python.org/3/library/socket.html
 https://docs.python.org/3/howto/sockets.html
 
-Python Curses Library (Extra Credit): 
+Python Curses Library: 
 
 https://docs.python.org/3/library/curses.html
 https://docs.python.org/3/howto/curses.html
 
 Idea for threading off the socket created by accept and broadcasting the messages
-back to the hosts (Extra Credit):
+back to the hosts:
 
 https://hackernoon.com/creating-command-line-based-chat-room-using-python-oxu3u33
 
-Python Threading Library (Extra Credit):
+Python Threading Library:
 https://docs.python.org/3/library/threading.html
 
-Getting the Color Codes for the Terminal (Extra Credit):
+Getting the Color Codes for the Terminal:
 https://www.unixtutorial.org/how-to-show-colour-numbers-in-unix-terminal/
 
-Python Select Library (for I/O Multiplexing) (Extra Credit):
+Python Select Library (for I/O Multiplexing):
 https://docs.python.org/3/library/select.html
 
 
@@ -39,10 +39,11 @@ https://docs.python.org/3/library/select.html
 - THE SERVER MUST BE RUN FIRST! The server.py file automatically starts a client 
   session after the server is running.
 - If you get an error starting the server due to a port already in use, you
-  can change the PORT variable in both client.py (Line 12) and server.py (Line 14)
-- This program has been tested with up to 12 clients (including the server client)
-  connected at once and worked flawlessly. This cap can be modified by changing
-  the value of MAX_CONNECTIONS in server.py (Line 17)
+  can change the PORT variable in both client.py (Line 12) and server.py (Line 
+  14)
+- This program has been tested with up to 12 clients (including the server 
+  client) connected at once and worked flawlessly. This cap can be modified by 
+  changing the value of MAX_CONNECTIONS in server.py (Line 17)
 
 
 ```bash
@@ -72,10 +73,10 @@ running until the following two conditions are met:
 
 ## Overview
 
-This project, while initially was a uni-directional client/server chat, became
-a multi-party chat with the hopes of acheiving full extra credit points. It's
-not a game, but its better! Why chat with one friend, when you can chat with
-many? 
+This project, is a multi-party client/server based chat. The server runs on one
+machine and many clients can connect to it. The server will also spawn a client
+instance so that the person who hosts the server, can participate in chat as
+well.
 
 The program leverages: the curses library for a better than plain old CLI GUI,
 threading, select for I/O multiplexing,  multiprocessing and of course... 
@@ -114,18 +115,3 @@ The bread and butter of the program. Written using the curses library for
 Python, it transforms a boring CLI into a rich and colorful CLI for the user
 to particpate in a chat session. See the code for comments and more details
 on the functions contained within.
-
-
-### Basic_client.py
-
-Same back and forth chat, but not multi-client, and strictly adheres to the
-specification provided in the classroom PDF. Prompted for input first. Will
-close when /q command is entered or received from server.
-
-
-### Basic_server.py
-
-Same back and forth chat, but not multi-client, and strictly adheres to the
-specification provided in the classroom PDF. Will be prompted for input after
-the client first sends a message. Will close when /q command is entered or 
-received from client.

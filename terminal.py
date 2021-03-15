@@ -6,7 +6,7 @@
 # Sources: See README.md
 
 import os, socket, curses
-from multiprocessing import *
+from multiprocessing import Process
 import select
 import random
 
@@ -20,21 +20,20 @@ users = {}
 color_number = 3
 
 # Adds the header to the screen object
-def display_header(main_screen):
+def display_header(main_screen, name: str, curses=curses):
 
     # Grab the lines and columns of the window
-    lines = curses.LINES
     cols = curses.COLS
 
     # Setup our text, and add it to the screen always at 0, 0
-    title = "CS 372 Multi-Client Chat - G. Kochera".format(lines, cols)
+    title = "Multi-Client Terminal Chat >> {}".format(name)
     padding = " " * 256
     header = title + padding
     main_screen.addnstr(0, 0, header, cols, curses.color_pair(1))
 
 
 # Displays the chat element in the screen object
-def display_chat(main_screen):
+def display_chat(main_screen, curses=curses):
 
     # Write the updated elements to the chat window        
     global color_number
@@ -78,21 +77,21 @@ def display_chat(main_screen):
 
 
 # Just moves the blinking cursor to the lower left corner in front of the prompt
-def set_cursor_home(main_screen):
+def set_cursor_home(main_screen, curses=curses):
     main_screen.addstr(curses.LINES - 1, 0, "> ", curses.color_pair(2))
     main_screen.move(curses.LINES - 1, 2)
 
 
 # Must be called between each chat event or input event to update all the screen
 # elements
-def update_screen(main_screen):
+def update_screen(main_screen, name: str):
 
     # Clear the screen completely
     main_screen.clear()
 
     # Add the header, updated chat box, set the cursor back to the input area
     # and call refresh which actually displays the contents
-    display_header(main_screen)
+    display_header(main_screen, name)
     display_chat(main_screen)
     set_cursor_home(main_screen)
     main_screen.refresh()
@@ -100,13 +99,13 @@ def update_screen(main_screen):
 
 # This function is run in its own process and constantly polls the socket for
 # new messages. It then updates the screen when a new message is received.
-def chat(main_screen, conn_socket: socket.socket):
+def chat(main_screen, conn_socket: socket.socket, name: str, curses=curses):
 
     running = True
     while running:
 
         # Check to see if we got any new messages
-        (rdy_to_read, rdy_to_write, error_skt) = select.select([conn_socket],[],[])
+        (rdy_to_read, _, _) = select.select([conn_socket],[],[])
         if rdy_to_read:
 
             # Read the data, convert it to a string, insert it in the chat record
@@ -123,7 +122,7 @@ def chat(main_screen, conn_socket: socket.socket):
                 chat_record.insert(0, "~!~Enter '/q' to quit.")
                 if len(chat_record) > curses.LINES - 2:
                     chat_record.pop()
-                update_screen(main_screen)
+                update_screen(main_screen, name)
                 running = False
             
             # Otherwise, update the chat panel as normal
@@ -134,7 +133,7 @@ def chat(main_screen, conn_socket: socket.socket):
                     chat_record.pop()
 
                 # Update the screen
-                update_screen(main_screen)
+                update_screen(main_screen, name)
 
 
 # Helpfer function to append the name of the current user to the message they
@@ -147,12 +146,12 @@ def format_message_string(sent_message: bytes, name: str):
 
 # This is the main input loop and controls the flow of the program for the 
 # user inputting data and sending it to the server.
-def run(main_screen, data_socket: socket.socket, name: str):
+def run(main_screen, data_socket: socket.socket, name: str, curses=curses):
     running = True
     while running:
         
         # Display the updated screen with the cursor ready for input
-        update_screen(main_screen)
+        update_screen(main_screen, name)
 
         # Capture the input from the user clear it from the same line
         b_input = main_screen.getstr(curses.LINES - 1, 2)
@@ -192,7 +191,7 @@ def main(stdscr, data_socket: socket.socket, name: str):
     t_input.start()
 
     # Spin up the chat log thread
-    t_chat = Process(target=chat, args=(main_screen, data_socket))
+    t_chat = Process(target=chat, args=(main_screen, data_socket, name))
     t_chat.start()
 
     # Wait for the threads to finish and close

@@ -6,8 +6,8 @@
 # Sources: See README.md
 
 import socket, select, time, sys
-from threading import *
-from multiprocessing import *
+from threading import Thread
+from multiprocessing import Process
 from client import client
 
 # PORT NUMBER TO USE
@@ -135,9 +135,9 @@ def server(persistent=False):
     while running:
 
         # Use select to scan the listener socket for readable events
-        (readable, writable, error) = select.select([listener_socket],[],[], 0.25)
+        (readable, _, _) = select.select([listener_socket],[],[], 0.25)
         if readable:
-            (connection_socket, address) = listener_socket.accept()
+            (connection_socket, _) = listener_socket.accept()
 
             # Add it to the list of sockets
             socket_list.append(connection_socket)

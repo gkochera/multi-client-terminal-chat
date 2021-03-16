@@ -4,37 +4,7 @@ By: George Kochera
 Date: 3/15/2021
 
 
-## Sources
-
-I am listing these sources here because they were all consulted through out the
-evolution of the project.
-
-Python Socket Library:
-
-https://docs.python.org/3/library/socket.html
-https://docs.python.org/3/howto/sockets.html
-
-Python Curses Library: 
-
-https://docs.python.org/3/library/curses.html
-https://docs.python.org/3/howto/curses.html
-
-Idea for threading off the socket created by accept and broadcasting the messages
-back to the hosts:
-
-https://hackernoon.com/creating-command-line-based-chat-room-using-python-oxu3u33
-
-Python Threading Library:
-https://docs.python.org/3/library/threading.html
-
-Getting the Color Codes for the Terminal:
-https://www.unixtutorial.org/how-to-show-colour-numbers-in-unix-terminal/
-
-Python Select Library (for I/O Multiplexing):
-https://docs.python.org/3/library/select.html
-
-
-## Running
+# Running
 
 - THE SERVER MUST BE RUN FIRST! The server.py file automatically starts a client 
   session after the server is running.
@@ -71,7 +41,7 @@ running until the following two conditions are met:
 2.  All client sockets have disconnected.
 
 
-## Overview
+# Overview
 
 This project, is a multi-party client/server based chat. The server runs on one
 machine and many clients can connect to it. The server will also spawn a client
@@ -83,7 +53,7 @@ threading, select for I/O multiplexing,  multiprocessing and of course...
 sockets.
 
 
-### Server.py
+## Server.py
 
 The server works by activating a listener socket at startup, and then evaluating
 the socket continuously for readability. When it finds the socket is in a
@@ -99,7 +69,7 @@ The server will shut down when all clients have disconnected under the condition
 that at least one client has connected first.
 
 
-### Client.py
+## Client.py
 
 The client starts by asking the user for their name to personalize the
 application to the user. The GUI is then loaded presenting the user with an
@@ -109,9 +79,39 @@ submit by hitting the ENTER key. The user can close the client and disconnect by
 typing '\q' at the prompt.
 
 
-### Terminal.py
+## Terminal.py
 
 The bread and butter of the program. Written using the curses library for 
 Python, it transforms a boring CLI into a rich and colorful CLI for the user
 to particpate in a chat session. See the code for comments and more details
 on the functions contained within.
+
+
+# Sources
+
+I am listing these sources here because they were all consulted through out the
+evolution of the project.
+
+Python Socket Library:
+
+https://docs.python.org/3/library/socket.html
+https://docs.python.org/3/howto/sockets.html
+
+Python Curses Library: 
+
+https://docs.python.org/3/library/curses.html
+https://docs.python.org/3/howto/curses.html
+
+Idea for threading off the socket created by accept and broadcasting the messages
+back to the hosts:
+
+https://hackernoon.com/creating-command-line-based-chat-room-using-python-oxu3u33
+
+Python Threading Library:
+https://docs.python.org/3/library/threading.html
+
+Getting the Color Codes for the Terminal:
+https://www.unixtutorial.org/how-to-show-colour-numbers-in-unix-terminal/
+
+Python Select Library (for I/O Multiplexing):
+https://docs.python.org/3/library/select.html

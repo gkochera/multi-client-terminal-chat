@@ -1,7 +1,27 @@
 # Multi-Party Chat
 
-By: George Kochera
-Date: 3/15/2021
+**By:** George Kochera
+
+**Date:** 3/15/2021
+
+# Overview
+
+This project, is a multi-party client/server based chat. The server runs on one
+machine and many clients can connect to it. The server will also spawn a client
+instance so that the person who hosts the server, can participate in chat as
+well.
+
+The program leverages: the curses library for a better than plain old CLI GUI,
+threading, select for I/O multiplexing,  multiprocessing and of course... 
+sockets.
+
+The client will show the current username at the top of the screen, and
+colorizes each unique user name in the chat panel. Input is currently limited
+to 120 characters or less. This program demonstrates a simple proof-of-concept
+that its possible to leverage sockets and some basic threading/multiprocessing
+to build a basic AIM-style chat client.
+
+![Preview of Running Application](screenshot_app.png)
 
 
 # Running
@@ -39,18 +59,6 @@ running until the following two conditions are met:
 
 1.  At least one client (including the server user) has connected to the server
 2.  All client sockets have disconnected.
-
-
-# Overview
-
-This project, is a multi-party client/server based chat. The server runs on one
-machine and many clients can connect to it. The server will also spawn a client
-instance so that the person who hosts the server, can participate in chat as
-well.
-
-The program leverages: the curses library for a better than plain old CLI GUI,
-threading, select for I/O multiplexing,  multiprocessing and of course... 
-sockets.
 
 
 ## Server.py

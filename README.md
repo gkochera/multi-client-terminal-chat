@@ -21,7 +21,7 @@ to 120 characters or less. This program demonstrates a simple proof-of-concept
 that its possible to leverage sockets and some basic threading/multiprocessing
 to build a basic AIM-style chat client.
 
-![Preview of Running Application](screenshot_app.png)
+![Preview of Running Application](python-chat.gif)
 
 
 # Running
@@ -60,6 +60,7 @@ running until the following two conditions are met:
 1.  At least one client (including the server user) has connected to the server
 2.  All client sockets have disconnected.
 
+> If you get an error at runtime concerning `_curses.init_pair()` run the following command in your terminal and try again `export TERM="xterm-256color"`
 
 ## Server.py
 

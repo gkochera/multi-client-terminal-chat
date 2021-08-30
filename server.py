@@ -11,7 +11,7 @@ from multiprocessing import Process
 from client import client
 
 # PORT NUMBER TO USE
-PORT = 38742
+PORT = 6111
 
 # MAXIMUM CONNECTIONS TO ACCEPT AT ONE TIME
 MAX_CONNECTIONS = 12

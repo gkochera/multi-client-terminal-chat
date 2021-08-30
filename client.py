@@ -9,7 +9,7 @@
 import socket, os, terminal
 
 # PORT NUMBER TO USE
-PORT = 38742
+PORT = 6111
 
 
 # Main client function, asks for the users, name, spins up a socket and then
